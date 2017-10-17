@@ -5,19 +5,19 @@
 
 
 //#define __A37474_000_TEST_GUN
-#define __A37474_000
+#define __A37474_001
 
 
 
 // Make sure that at least one board is selected
 #ifndef __A37474_000_TEST_GUN
-#ifndef __A37474_000
+#ifndef __A37474_001
 #error "No Specific Board Selected"
 #endif
 #endif
 
 
-#ifdef __A37474_000
+#ifdef __A37474_001
 #define __MODE_ETHERNET_INTERFACE
 #define __MODE_MODBUS_MONITOR
 #define __OPTION_ENABLE_CAN
@@ -25,15 +25,15 @@
 #define HEATER_RAMP_TIME                        21000        // 3.5min
 #define RAMP_TIME_INTERVAL                      30           // 300ms
 #define MAX_PROGRAM_HTR_VOLTAGE                 8000         // 8.0 V
-#define MAX_RAMP_HTR_I                          4200         // 4.200 Amps
-#define HTR_OC_ABS                              4400         // 4.400 Amps
+#define MAX_RAMP_HTR_I                          1650         // 1.650 Amps
+#define HTR_OC_ABS                              1750         // 1.750 Amps
 #define HV_MAX_SET_BOARD_SPEC                   20000        // -20KV
 #define HV_MIN_SET_BOARD_SPEC                   0            // 0KV
 #define TOP_MAX_SET_BOARD_SPEC                  22000        // 140V
 #define TOP_MIN_SET_BOARD_SPEC                  0            // -80V
 #define BIAS_OVER_VOLTAGE                       18000        // -180V
 #define BIAS_UNDER_VOLTAGE                      14000        // -140V
-#define BOARD_DASH_NUMBER                       000
+#define BOARD_DASH_NUMBER                       001
 #ifdef  __A37474_000_TEST_GUN
 #error "Multiple boards selected"
 #endif

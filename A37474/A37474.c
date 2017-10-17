@@ -1466,42 +1466,62 @@ void DoA37474(void) {
     
 #endif
     
-    
-    
-    
+   
     if (global_data_A37474.heater_voltage_target > MAX_PROGRAM_HTR_VOLTAGE) {
       global_data_A37474.heater_voltage_target = MAX_PROGRAM_HTR_VOLTAGE;
     }
     
+    
+    
     // Ramp the heater voltage
-    if (global_data_A37474.fault_holdoff_state == FAULT_HOLDOFF_STATE) {
+//    if (global_data_A37474.fault_holdoff_state == FAULT_HOLDOFF_STATE) {
+//      global_data_A37474.heater_voltage_current_limited = 0;
+//    }
+//    
+//    if (global_data_A37474.control_state == STATE_HEATER_RAMP_UP) {
+//      global_data_A37474.heater_ramp_interval++;
+//      if (global_data_A37474.heater_ramp_interval >= HEATER_RAMP_UP_TIME_PERIOD) {
+//        global_data_A37474.heater_ramp_interval = 0;
+//        global_data_A37474.analog_output_heater_voltage.set_point += HEATER_RAMP_UP_INCREMENT;  
+//      }  
+//        
+//    } else if (global_data_A37474.control_state > STATE_HEATER_RAMP_UP) {
+//      global_data_A37474.heater_ramp_interval++;
+//      if (global_data_A37474.heater_ramp_interval >= HEATER_REGULATION_TIME_PERIOD) {
+//        global_data_A37474.heater_ramp_interval = 0;
+//        if (global_data_A37474.input_htr_i_mon.reading_scaled_and_calibrated < MAX_HEATER_CURRENT_DURING_RAMP_UP) {
+//          global_data_A37474.analog_output_heater_voltage.set_point += HEATER_REGULATION_INCREMENT;
+//          if (global_data_A37474.heater_voltage_current_limited) {
+//            global_data_A37474.heater_voltage_current_limited--;
+//          }
+//        } else {
+//          global_data_A37474.heater_voltage_current_limited++;
+//          if (global_data_A37474.heater_voltage_current_limited > HEATER_VOLTAGE_CURRENT_LIMITED_FAULT_TIME) {
+//            global_data_A37474.heater_voltage_current_limited = HEATER_VOLTAGE_CURRENT_LIMITED_FAULT_TIME;
+//          }
+//        }
+//      }
+//    }
+    
+    if ((global_data_A37474.control_state == STATE_HEATER_RAMP_UP)||(global_data_A37474.fault_holdoff_state == FAULT_HOLDOFF_STATE)) {
       global_data_A37474.heater_voltage_current_limited = 0;
     }
+    global_data_A37474.heater_ramp_interval++;
     
-    if (global_data_A37474.control_state == STATE_HEATER_RAMP_UP) {
-      global_data_A37474.heater_ramp_interval++;
-      if (global_data_A37474.heater_ramp_interval >= HEATER_RAMP_UP_TIME_PERIOD) {
-        global_data_A37474.heater_ramp_interval = 0;
-        global_data_A37474.analog_output_heater_voltage.set_point += HEATER_RAMP_UP_INCREMENT;  
-      }  
-        
-    } else if (global_data_A37474.control_state > STATE_HEATER_RAMP_UP) {
-      global_data_A37474.heater_ramp_interval++;
-      if (global_data_A37474.heater_ramp_interval >= HEATER_REGULATION_TIME_PERIOD) {
-        global_data_A37474.heater_ramp_interval = 0;
-        if (global_data_A37474.input_htr_i_mon.reading_scaled_and_calibrated < MAX_HEATER_CURRENT_DURING_RAMP_UP) {
-          global_data_A37474.analog_output_heater_voltage.set_point += HEATER_REGULATION_INCREMENT;
-          if (global_data_A37474.heater_voltage_current_limited) {
-            global_data_A37474.heater_voltage_current_limited--;
-          }
-        } else {
-          global_data_A37474.heater_voltage_current_limited++;
-          if (global_data_A37474.heater_voltage_current_limited > HEATER_VOLTAGE_CURRENT_LIMITED_FAULT_TIME) {
-            global_data_A37474.heater_voltage_current_limited = HEATER_VOLTAGE_CURRENT_LIMITED_FAULT_TIME;
-          }
+    if (global_data_A37474.heater_ramp_interval >= HEATER_REGULATION_TIME_PERIOD) {
+      global_data_A37474.heater_ramp_interval = 0;
+      if (global_data_A37474.input_htr_i_mon.reading_scaled_and_calibrated < MAX_HEATER_CURRENT_DURING_RAMP_UP) {
+        global_data_A37474.analog_output_heater_voltage.set_point += HEATER_REGULATION_INCREMENT;
+        if (global_data_A37474.heater_voltage_current_limited) {
+          global_data_A37474.heater_voltage_current_limited--;
+        }
+      } else {
+        global_data_A37474.heater_voltage_current_limited++;
+        if (global_data_A37474.heater_voltage_current_limited > HEATER_VOLTAGE_CURRENT_LIMITED_FAULT_TIME) {
+          global_data_A37474.heater_voltage_current_limited = HEATER_VOLTAGE_CURRENT_LIMITED_FAULT_TIME;
         }
       }
-    }
+    }  
     
     if (global_data_A37474.analog_output_heater_voltage.set_point > global_data_A37474.heater_voltage_target) {
       global_data_A37474.analog_output_heater_voltage.set_point = global_data_A37474.heater_voltage_target;
