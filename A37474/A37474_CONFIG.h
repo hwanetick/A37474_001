@@ -25,8 +25,8 @@
 #define HEATER_RAMP_TIME                        21000        // 3.5min
 #define RAMP_TIME_INTERVAL                      30           // 300ms
 #define MAX_PROGRAM_HTR_VOLTAGE                 8000         // 8.0 V
-#define MAX_RAMP_HTR_I                          1650         // 1.650 Amps
-#define HTR_OC_ABS                              1750         // 1.750 Amps
+#define MAX_RAMP_HTR_I                          3650         // 3.650 Amps
+#define HTR_OC_ABS                              3750         // 3.750 Amps
 #define HV_MAX_SET_BOARD_SPEC                   20000        // -20KV
 #define HV_MIN_SET_BOARD_SPEC                   0            // 0KV
 #define TOP_MAX_SET_BOARD_SPEC                  22000        // 140V
