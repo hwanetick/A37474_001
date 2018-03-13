@@ -83,7 +83,7 @@
 #define TOP_MIN_SET_BOARD_SPEC                  0            // -80V
 #define BIAS_OVER_VOLTAGE                       18000        // -180V
 #define BIAS_UNDER_VOLTAGE                      14000        // -140V
-#define BOARD_DASH_NUMBER                       002
+#define BOARD_DASH_NUMBER                       002          // for A37474-002Z
 #endif
 
 
