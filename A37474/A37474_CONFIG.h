@@ -6,7 +6,8 @@
 
 //#define __A37474_000_TEST_GUN
 //#define __A37474_001
-#define __A37474_002
+//#define __A37474_002
+#define __A37474_003
 
 
 
@@ -14,7 +15,9 @@
 #ifndef __A37474_000_TEST_GUN
 #ifndef __A37474_001
 #ifndef __A37474_002
+#ifndef __A37474_003
 #error "No Specific Board Selected"
+#endif
 #endif
 #endif
 #endif
@@ -43,6 +46,9 @@
 #ifdef  __A37474_002
 #error "Multiple boards selected"
 #endif
+#ifdef  __A37474_003
+#error "Multiple boards selected"
+#endif
 #endif
 
 #ifdef __A37474_000_TEST_GUN
@@ -65,6 +71,9 @@
 #ifdef  __A37474_002
 #error "Multiple boards selected"
 #endif
+#ifdef  __A37474_003
+#error "Multiple boards selected"
+#endif
 #endif
 
 #ifdef __A37474_002
@@ -84,6 +93,27 @@
 #define BIAS_OVER_VOLTAGE                       18000        // -180V
 #define BIAS_UNDER_VOLTAGE                      14000        // -140V
 #define BOARD_DASH_NUMBER                       002          // for A37474-002Z
+#ifdef  __A37474_003
+#error "Multiple boards selected"
+#endif
+#endif
+
+#ifdef __A37474_003
+#define __MODE_CAN_INTERFACE
+//#define __MODE_MODBUS_MONITOR
+#define OLL_PIN_CPU_HV_ENABLE_HV_ENABLED        1
+#define HEATER_RAMP_TIME                        30000        // 5min
+#define RAMP_TIME_INTERVAL                      5            // 50ms
+#define MAX_PROGRAM_HTR_CURRENT                 1600         // 1.6 Amps
+#define MAX_RAMP_HTR_I                          1650         // 1.65 Amps
+#define HTR_OC_ABS                              1750         // 1.75 Amps
+#define HV_MAX_SET_BOARD_SPEC                   20000        // -20KV
+#define HV_MIN_SET_BOARD_SPEC                   0            // 0KV
+#define TOP_MAX_SET_BOARD_SPEC                  40000        // 320V
+#define TOP_MIN_SET_BOARD_SPEC                  0            // -80V
+#define BIAS_OVER_VOLTAGE                       18000        // -180V
+#define BIAS_UNDER_VOLTAGE                      14000        // -140V
+#define BOARD_DASH_NUMBER                       003          // for A37474-003Z
 #endif
 
 
@@ -199,7 +229,7 @@
 #endif
 
 // for test
-#define CONFIG_SELECT_PIN_BYTE               (SELECT_HV_ENABLE_SERIAL & SELECT_BEAM_ENABLE_SERIAL & SELECT_HV_ILOCK_EXTERNAL_CONTROL & PULSE_GATE_DISCRETE)
+#define CONFIG_SELECT_PIN_BYTE               (SELECT_HV_ENABLE_SERIAL & SELECT_BEAM_ENABLE_SERIAL & SELECT_HV_ILOCK_ENABLE_FIBER & PULSE_GATE_FIBER)
 
 
 
@@ -209,6 +239,7 @@
 #define HEATER_AUTO_RESTART_TIME              500      // Time delay between a heater fault and when the heater gets restarted
 #define HEATER_RAMP_UP_TIME_PERIOD            RAMP_TIME_INTERVAL  // (300ms) During heater ramp up, the heater voltage will be increased every N 10ms (see HEATER_RAMP_UP_INCREMENT)
 #define GUN_DRIVER_POWER_SUPPLY_STARTUP_TIME  100      // Wait this long between enabling High Voltage / Pulse Top / Bias and cheching that they are at correct values
+#define MAX_INITIAL_RAMP_TIME                 6000     // Timeout initial ramp if operational current never reached
 
 #define HEATER_REGULATION_TIME_PERIOD         5        // (50ms) This is the period that the regulation of the heater voltage takes between increments
 
@@ -217,7 +248,8 @@
 #define MAX_CONVERTER_LOGIC_ADC_READ_ERRORS   20       // If the ADC read exceeds this number a fault will be created
 #define MAX_HEATER_START_UP_ATTEMPTS          5        // If the heater ramp up process does not succeed in this many attempts, a fault will be generated that requires power cycle
 #define MAX_DAC_TX_ATTEMPTS                   10       // The pic will attempt to write to the Converter Logic DAC this many times before giving up
-#define HEATER_RAMP_UP_INCREMENT              10       // mV Units.  When ramping up the heater voltage it is increased by this amount each HEATER_RAMP_UP_TIME_PERIOD
+#define HEATER_RAMP_UP_INCREMENT              50       // mV Units.  When ramping up the heater voltage it is increased by this amount each HEATER_RAMP_UP_TIME_PERIOD
+#define HEATER_FINE_VOLT_INCREMENT            10       // mV Units.  When maintaining constant current, heater voltage adjusted by this much
 
 #define HEATER_REGULATION_INCREMENT           50       // (50mV) This is the regulation increment for the heater voltage
 

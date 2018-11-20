@@ -498,8 +498,8 @@ void CanProcessCommand(unsigned char length, unsigned char * data)
 
     case SDO_IDX_EF_REF:
     	if (is_upload) {
-        	txData[4] = global_data_A37474.heater_voltage_target & 0x00ff;
-            txData[5] = (global_data_A37474.heater_voltage_target >> 8) & 0x00ff;
+        	txData[4] = global_data_A37474.heater_current_target & 0x00ff;
+            txData[5] = (global_data_A37474.heater_current_target >> 8) & 0x00ff;
         }
         else {
         	// check max, min range
