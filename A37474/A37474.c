@@ -739,19 +739,19 @@ void InitializeA37474(void) {
 			   MACRO_DEC_TO_SCALE_FACTOR_16(ADC_HTR_V_MON_FIXED_SCALE),
 			   ADC_HTR_V_MON_FIXED_OFFSET,
 			   ANALOG_INPUT_3,
-			   NO_OVER_TRIP,
-			   NO_UNDER_TRIP,
-			   ADC_HTR_V_MON_RELATIVE_TRIP_SCALE,
-			   ADC_HTR_V_MON_RELATIVE_TRIP_FLOOR,
-			   ADC_HTR_V_MON_RELATIVE_TRIP_COUNT,
-			   NO_ABSOLUTE_COUNTER);
+			   ADC_HTR_V_MON_OVER_LIMIT_ABSOLUTE,
+			   ADC_HTR_V_MON_UNDER_LIMIT_ABSOLUTE,
+			   NO_TRIP_SCALE,
+			   NO_FLOOR,
+			   NO_RELATIVE_COUNTER,
+			   ADC_HTR_V_MON_ABSOLUTE_TRIP_TIME);
 
   ETMAnalogInitializeInput(&global_data_A37474.input_htr_i_mon,
 			   MACRO_DEC_TO_SCALE_FACTOR_16(ADC_HTR_I_MON_FIXED_SCALE),
 			   ADC_HTR_I_MON_FIXED_OFFSET,
 			   ANALOG_INPUT_4,
 			   ADC_HTR_I_MON_OVER_LIMIT_ABSOLUTE,
-			   ADC_HTR_I_MON_UNDER_LIMIT_ABSOLUTE,
+			   NO_UNDER_TRIP,
 			   NO_TRIP_SCALE,
 			   NO_FLOOR,
 			   NO_RELATIVE_COUNTER,
@@ -1414,9 +1414,9 @@ void DoA37474(void) {
     ETMAnalogScaleCalibrateADCReading(&global_data_A37474.pos_15v_mon);
     ETMAnalogScaleCalibrateADCReading(&global_data_A37474.neg_15v_mon);
 
-    ETMCanSlaveSetDebugRegister(0xA, global_data_A37474.pos_5v_mon.reading_scaled_and_calibrated);
-    ETMCanSlaveSetDebugRegister(0xB, global_data_A37474.pos_15v_mon.reading_scaled_and_calibrated);
-    ETMCanSlaveSetDebugRegister(0xC, global_data_A37474.neg_15v_mon.reading_scaled_and_calibrated);
+    ETMCanSlaveSetDebugRegister(0xA, global_data_A37474.heater_current_target);
+    ETMCanSlaveSetDebugRegister(0xB, global_data_A37474.input_htr_i_mon.reading_scaled_and_calibrated);
+    ETMCanSlaveSetDebugRegister(0xC, global_data_A37474.input_htr_v_mon.reading_scaled_and_calibrated);
 //    ETMCanSlaveSetDebugRegister(0xA, global_data_A37474.run_time_counter);
 //    ETMCanSlaveSetDebugRegister(0xB, global_data_A37474.fault_restart_remaining);
 //    ETMCanSlaveSetDebugRegister(0xC, global_data_A37474.power_supply_startup_remaining);
