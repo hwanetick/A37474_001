@@ -1867,6 +1867,7 @@ void DisableHeater(void) {
   global_data_A37474.analog_output_heater_voltage.enabled = 0;
   global_data_A37474.dac_digital_heater_enable = DAC_DIGITAL_OFF;
   DACWriteChannel(LTC265X_WRITE_AND_UPDATE_DAC_E, global_data_A37474.dac_digital_heater_enable);
+  _STATUS_HEATER_AT_OPERATING_CURRENT = 0;
 }
 
 
