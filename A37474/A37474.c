@@ -1688,7 +1688,7 @@ void UpdateFaults(void) {
     }
       
     if (global_data_A37474.control_state >= STATE_HEATER_WARM_UP_DONE) {
-      if (ETMAnalogCheckUnderRelative(&global_data_A37474.input_htr_v_mon)) {
+      if (ETMAnalogCheckUnderAbsolute(&global_data_A37474.input_htr_v_mon)) {
         _FAULT_ADC_HTR_V_MON_UNDER_ABSOLUTE = 1;
       }
     } else if (global_data_A37474.reset_active) {
