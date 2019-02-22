@@ -1681,7 +1681,7 @@ void UpdateFaults(void) {
       _FAULT_ADC_HTR_I_MON_OVER_ABSOLUTE = 0;
     }
 
-    if (ETMAnalogCheckOverRelative(&global_data_A37474.input_htr_v_mon)) {
+    if (ETMAnalogCheckOverAbsolute(&global_data_A37474.input_htr_v_mon)) {
       _FAULT_ADC_HTR_V_MON_OVER_ABSOLUTE = 1;
     } else if (global_data_A37474.reset_active) {
       _FAULT_ADC_HTR_V_MON_OVER_ABSOLUTE = 0;
