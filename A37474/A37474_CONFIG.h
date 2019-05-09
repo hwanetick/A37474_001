@@ -6,12 +6,12 @@
 
 //#define __A37474_000_TEST_GUN
 //#define __A37474_001
-#define __A37474_002
-
+//#define __A37474_002
+#define __A37474_450
 
 
 // Make sure that at least one board is selected
-#ifndef __A37474_000_TEST_GUN
+#ifndef __A37474_450
 #ifndef __A37474_001
 #ifndef __A37474_002
 #error "No Specific Board Selected"
@@ -37,31 +37,9 @@
 #define BIAS_OVER_VOLTAGE                       18000        // -180V
 #define BIAS_UNDER_VOLTAGE                      14000        // -140V
 #define BOARD_DASH_NUMBER                       001
-#ifdef  __A37474_000_TEST_GUN
+#ifdef  __A37474_450
 #error "Multiple boards selected"
 #endif
-#ifdef  __A37474_002
-#error "Multiple boards selected"
-#endif
-#endif
-
-#ifdef __A37474_000_TEST_GUN
-#define __MODE_ETHERNET_INTERFACE
-#define __MODE_MODBUS_MONITOR
-#define __OPTION_ENABLE_CAN
-#define OLL_PIN_CPU_HV_ENABLE_HV_ENABLED        1
-#define HEATER_RAMP_TIME                        42000        // 7min
-#define RAMP_TIME_INTERVAL                      60           // 600ms
-#define MAX_PROGRAM_HTR_VOLTAGE                 8000         // 8.0 V
-#define MAX_RAMP_HTR_I                          1650         // 1.650 Amps
-#define HTR_OC_ABS                              1750         // 1.750 Amps
-#define HV_MAX_SET_BOARD_SPEC                   20000        // -20KV
-#define HV_MIN_SET_BOARD_SPEC                   0            // 0KV
-#define TOP_MAX_SET_BOARD_SPEC                  40000        // 320V
-#define TOP_MIN_SET_BOARD_SPEC                  0            // -80V
-#define BIAS_OVER_VOLTAGE                       18000        // -180V
-#define BIAS_UNDER_VOLTAGE                      14000        // -140V
-#define BOARD_DASH_NUMBER                       000
 #ifdef  __A37474_002
 #error "Multiple boards selected"
 #endif
@@ -84,6 +62,29 @@
 #define BIAS_OVER_VOLTAGE                       18000        // -180V
 #define BIAS_UNDER_VOLTAGE                      14000        // -140V
 #define BOARD_DASH_NUMBER                       002          // for A37474-002Z
+#ifdef  __A37474_450
+#error "Multiple boards selected"
+#endif
+#endif
+
+
+#ifdef __A37474_450
+#define __MODE_ETHERNET_INTERFACE
+#define __MODE_MODBUS_MONITOR
+#define __OPTION_ENABLE_CAN
+#define OLL_PIN_CPU_HV_ENABLE_HV_ENABLED        1
+#define HEATER_RAMP_TIME                        21000        // 3.5min
+#define RAMP_TIME_INTERVAL                      30           // 300ms
+#define MAX_PROGRAM_HTR_VOLTAGE                 8300         // 8.3 V
+#define MAX_RAMP_HTR_I                          4700         // 3.750 Amps
+#define HTR_OC_ABS                              5500         // 5.500 Amps
+#define HV_MAX_SET_BOARD_SPEC                   20000        // -20KV
+#define HV_MIN_SET_BOARD_SPEC                   0            // -0KV
+#define TOP_MAX_SET_BOARD_SPEC                  40000        // 320V
+#define TOP_MIN_SET_BOARD_SPEC                  0            // -80V
+#define BIAS_OVER_VOLTAGE                       18000        // -180V
+#define BIAS_UNDER_VOLTAGE                      14000        // -140V
+#define BOARD_DASH_NUMBER                       450          // for A37474-450Z
 #endif
 
 
