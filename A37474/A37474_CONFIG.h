@@ -317,7 +317,7 @@
 
 #define DAC_HEATER_VOLTAGE_FIXED_SCALE        7.5188
 #define DAC_HEATER_VOLTAGE_FIXED_OFFSET       0
-#define HEATER_VOLTAGE_MAX_SET_POINT          8000                              // 8V
+#define HEATER_VOLTAGE_MAX_SET_POINT          8300                              // 8.3V
 #define HEATER_VOLTAGE_MIN_SET_POINT          0                                 // 0V
 
 
