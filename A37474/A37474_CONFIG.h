@@ -73,11 +73,11 @@
 #define __MODE_MODBUS_MONITOR
 #define __OPTION_ENABLE_CAN
 #define OLL_PIN_CPU_HV_ENABLE_HV_ENABLED        1
-#define HEATER_RAMP_TIME                        24000        // 4.0min
+#define HEATER_RAMP_TIME                        30000        // 5.0min
 #define RAMP_TIME_INTERVAL                      30           // 300ms
 #define MAX_PROGRAM_HTR_VOLTAGE                 8300         // 8.3 V
-#define MAX_RAMP_HTR_I                          4700         // 4.70 Amps
-#define HTR_OC_ABS                              5500         // 5.500 Amps
+#define MAX_RAMP_HTR_I                          5500         // 5.50 Amps
+#define HTR_OC_ABS                              5700         // 5.700 Amps
 #define HV_MAX_SET_BOARD_SPEC                   20000        // -20KV
 #define HV_MIN_SET_BOARD_SPEC                   0            // -0KV
 #define TOP_MAX_SET_BOARD_SPEC                  40000        // 320V
@@ -206,7 +206,7 @@
 
 // ----------- Timers configurations - ALL Times are in 10ms Units --------------------
 #define LED_STARTUP_FLASH_TIME                500      // Time LEDs will flash at startup
-#define MAX_HEATER_RAMP_UP_TIME               HEATER_RAMP_TIME    // (4.0min) If the heater does not reach it's programed voltage in this time a fault will be generated
+#define MAX_HEATER_RAMP_UP_TIME               HEATER_RAMP_TIME    // (5.0min) If the heater does not reach it's programed voltage in this time a fault will be generated
 #define HEATER_AUTO_RESTART_TIME              500      // Time delay between a heater fault and when the heater gets restarted
 #define HEATER_RAMP_UP_TIME_PERIOD            RAMP_TIME_INTERVAL  // (300ms) During heater ramp up, the heater voltage will be increased every N 10ms (see HEATER_RAMP_UP_INCREMENT)
 #define GUN_DRIVER_POWER_SUPPLY_STARTUP_TIME  100      // Wait this long between enabling High Voltage / Pulse Top / Bias and cheching that they are at correct values
@@ -214,7 +214,7 @@
 #define HEATER_REGULATION_TIME_PERIOD         5        // (50ms) This is the period that the regulation of the heater voltage takes between increments
 
 // System control Parameters
-#define MAX_HEATER_CURRENT_DURING_RAMP_UP     MAX_RAMP_HTR_I    //4700     // mA Units.  Whenever the heater voltage is increased (ramp-up or increasing the set point).  The voltage will be current limited by this current
+#define MAX_HEATER_CURRENT_DURING_RAMP_UP     MAX_RAMP_HTR_I    //5500     // mA Units.  Whenever the heater voltage is increased (ramp-up or increasing the set point).  The voltage will be current limited by this current
 #define MAX_CONVERTER_LOGIC_ADC_READ_ERRORS   20       // If the ADC read exceeds this number a fault will be created
 #define MAX_HEATER_START_UP_ATTEMPTS          5        // If the heater ramp up process does not succeed in this many attempts, a fault will be generated that requires power cycle
 #define MAX_DAC_TX_ATTEMPTS                   10       // The pic will attempt to write to the Converter Logic DAC this many times before giving up
@@ -271,8 +271,8 @@
 
 #define ADC_HTR_I_MON_FIXED_SCALE             .10419
 #define ADC_HTR_I_MON_FIXED_OFFSET            0
-#define ADC_HTR_I_MON_OVER_LIMIT_ABSOLUTE     HTR_OC_ABS    //1750                              // 1.750 Amps
-#define ADC_HTR_I_MON_UNDER_LIMIT_ABSOLUTE    200                               // 0.200 Amps
+#define ADC_HTR_I_MON_OVER_LIMIT_ABSOLUTE     HTR_OC_ABS    //5700                              // 5.700 Amps
+//#define ADC_HTR_I_MON_UNDER_LIMIT_ABSOLUTE    200                               // 0.200 Amps
 #define ADC_HTR_I_MON_ABSOLUTE_TRIP_TIME      50                                // 500mS
 
 
