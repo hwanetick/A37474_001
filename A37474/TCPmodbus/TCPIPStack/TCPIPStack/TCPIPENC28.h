@@ -234,7 +234,7 @@
  *   mode.  In CLIENT mode, some functions specific to client operation
  *   are enabled.
  */
-#define STACK_CLIENT_MODE
+//#define STACK_CLIENT_MODE
 
 /* TCP Socket Memory Allocation
  *   TCP needs memory to buffer incoming and outgoing data.  The

@@ -116,11 +116,11 @@
 #define TCP_START_TIMEOUT_VAL   	((DWORD)TICK_SECOND*1)	// Timeout to retransmit unacked data
 #define TCP_DELAYED_ACK_TIMEOUT		((DWORD)TICK_SECOND/10)	// Timeout for delayed-acknowledgement algorithm
 #define TCP_FIN_WAIT_2_TIMEOUT		((DWORD)TICK_SECOND*5)	// Timeout for FIN WAIT 2 state
-#define TCP_KEEP_ALIVE_TIMEOUT		((DWORD)TICK_SECOND*10)	// Timeout for keep-alive messages when no traffic is sent
+#define TCP_KEEP_ALIVE_TIMEOUT		((DWORD)TICK_SECOND*5)	// Timeout for keep-alive messages when no traffic is sent
 #define TCP_CLOSE_WAIT_TIMEOUT		((DWORD)TICK_SECOND/5)	// Timeout for the CLOSE_WAIT state
-#define TCP_MAX_RETRIES			    (5u)					// Maximum number of retransmission attempts
-#define TCP_MAX_UNACKED_KEEP_ALIVES	(6u)					// Maximum number of keep-alive messages that can be sent without receiving a response before automatically closing the connection
-#define TCP_MAX_SYN_RETRIES			(2u)	// Smaller than all other retries to reduce SYN flood DoS duration
+#define TCP_MAX_RETRIES			    (3u)					// Maximum number of retransmission attempts
+#define TCP_MAX_UNACKED_KEEP_ALIVES	(2u)					// Maximum number of keep-alive messages that can be sent without receiving a response before automatically closing the connection
+#define TCP_MAX_SYN_RETRIES			(1u)	// Smaller than all other retries to reduce SYN flood DoS duration
 
 #define TCP_AUTO_TRANSMIT_TIMEOUT_VAL	(TICK_SECOND/25ull)	// Timeout before automatically transmitting unflushed data
 #define TCP_WINDOW_UPDATE_TIMEOUT_VAL	(TICK_SECOND/5ull)	// Timeout before automatically transmitting a window update due to a TCPGet() or TCPGetArray() function call
