@@ -8,7 +8,8 @@
 //#define __A37474_001
 //#define __A37474_002
 //#define __A37474_450
-#define __A37474_950
+//#define __A37474_950
+#define __A37474_110
 
 
 // Make sure that at least one board is selected
@@ -16,7 +17,9 @@
 #ifndef __A37474_450
 #ifndef __A37474_001
 #ifndef __A37474_002
+#ifndef __A37474_110
 #error "No Specific Board Selected"
+#endif
 #endif
 #endif
 #endif
@@ -49,6 +52,9 @@
 #ifdef  __A37474_950
 #error "Multiple boards selected"
 #endif
+#ifdef  __A37474_110
+#error "Multiple boards selected"
+#endif
 #endif
 
 #ifdef __A37474_002
@@ -74,6 +80,9 @@
 #ifdef  __A37474_950
 #error "Multiple boards selected"
 #endif
+#ifdef  __A37474_110
+#error "Multiple boards selected"
+#endif
 #endif
 
 
@@ -97,6 +106,9 @@
 #ifdef  __A37474_950
 #error "Multiple boards selected"
 #endif
+#ifdef  __A37474_110
+#error "Multiple boards selected"
+#endif
 #endif
 
 #ifdef __A37474_950
@@ -116,6 +128,28 @@
 #define BIAS_OVER_VOLTAGE                       18000        // -180V
 #define BIAS_UNDER_VOLTAGE                      14000        // -140V
 #define BOARD_DASH_NUMBER                       950          // for A37474-950Z
+#ifdef  __A37474_110
+#error "Multiple boards selected"
+#endif
+#endif
+
+#ifdef __A37474_950
+#define __MODE_ETHERNET_INTERFACE
+#define __MODE_MODBUS_MONITOR
+#define __OPTION_ENABLE_CAN
+#define OLL_PIN_CPU_HV_ENABLE_HV_ENABLED        1
+#define HEATER_RAMP_TIME                        30000        // 5.0min
+#define RAMP_TIME_INTERVAL                      30           // 300ms
+#define MAX_PROGRAM_HTR_VOLTAGE                 9000         // 9.0 V
+#define MAX_RAMP_HTR_I                          5000         // 5.0 Amps
+#define HTR_OC_ABS                              5200         // 5.2 Amps
+#define HV_MAX_SET_BOARD_SPEC                   20000        // -20KV
+#define HV_MIN_SET_BOARD_SPEC                   0            // -0KV
+#define TOP_MAX_SET_BOARD_SPEC                  38000        // 300V
+#define TOP_MIN_SET_BOARD_SPEC                  0            // -80V
+#define BIAS_OVER_VOLTAGE                       22000        // -220V
+#define BIAS_UNDER_VOLTAGE                      18000        // -180V
+#define BOARD_DASH_NUMBER                       110          // for A37474-110Z
 #endif
 
 /*----------------------------------------------------------------------*/
@@ -244,7 +278,7 @@
 #define HEATER_REGULATION_TIME_PERIOD         5        // (50ms) This is the period that the regulation of the heater voltage takes between increments
 
 // System control Parameters
-#define MAX_HEATER_CURRENT_DURING_RAMP_UP     MAX_RAMP_HTR_I    //2000     // mA Units.  Whenever the heater voltage is increased (ramp-up or increasing the set point).  The voltage will be current limited by this current
+#define MAX_HEATER_CURRENT_DURING_RAMP_UP     MAX_RAMP_HTR_I    //5000     // mA Units.  Whenever the heater voltage is increased (ramp-up or increasing the set point).  The voltage will be current limited by this current
 #define MAX_CONVERTER_LOGIC_ADC_READ_ERRORS   20       // If the ADC read exceeds this number a fault will be created
 #define MAX_HEATER_START_UP_ATTEMPTS          5        // If the heater ramp up process does not succeed in this many attempts, a fault will be generated that requires power cycle
 #define MAX_DAC_TX_ATTEMPTS                   10       // The pic will attempt to write to the Converter Logic DAC this many times before giving up
@@ -301,7 +335,7 @@
 
 #define ADC_HTR_I_MON_FIXED_SCALE             .10419
 #define ADC_HTR_I_MON_FIXED_OFFSET            0
-#define ADC_HTR_I_MON_OVER_LIMIT_ABSOLUTE     HTR_OC_ABS    //2200              // 2.200 Amps
+#define ADC_HTR_I_MON_OVER_LIMIT_ABSOLUTE     HTR_OC_ABS    //5200              // 2.200 Amps
 #define ADC_HTR_I_MON_ABSOLUTE_TRIP_TIME      50                                // 500mS
 
 
@@ -344,7 +378,7 @@
 
 #define DAC_HEATER_VOLTAGE_FIXED_SCALE        7.5188
 #define DAC_HEATER_VOLTAGE_FIXED_OFFSET       0
-#define HEATER_VOLTAGE_MAX_SET_POINT          MAX_PROGRAM_HTR_VOLTAGE           // 8.0V
+#define HEATER_VOLTAGE_MAX_SET_POINT          MAX_PROGRAM_HTR_VOLTAGE           // 9.0V
 #define HEATER_VOLTAGE_MIN_SET_POINT          0                                 // 0V
 
 
