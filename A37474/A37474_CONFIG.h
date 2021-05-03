@@ -133,7 +133,7 @@
 #endif
 #endif
 
-#ifdef __A37474_950
+#ifdef __A37474_110
 #define __MODE_ETHERNET_INTERFACE
 #define __MODE_MODBUS_MONITOR
 #define __OPTION_ENABLE_CAN
