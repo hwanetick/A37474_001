@@ -42,7 +42,6 @@ void UpdateFaults(void); // Update the fault bits based on analog/digital parame
 void UpdateLEDandStatusOutuputs(void);  // Updates the LED and status outputs based on the system state
 
 void SetStateMessage (unsigned int message);  // Sets bits for modbus state message
-unsigned int GetModbusResetEnable(void);
 
 
 #ifdef __noModbusLibrary
@@ -668,14 +667,6 @@ void InitializeA37474(void) {
   ADCConfigure();
   
   
-#ifdef __ETHERNET_REFERENCE
-    
-  global_data_A37474.ethernet_hv_ref  = ETMEEPromReadWord(0x682);
-  global_data_A37474.ethernet_top_ref = ETMEEPromReadWord(0x681);
-  global_data_A37474.ethernet_htr_ref = ETMEEPromReadWord(0x680);  
-  
-#endif
-
   // Initialize off board ADC Inputs
   ETMAnalogInitializeInput(&global_data_A37474.input_adc_temperature,
 			   MACRO_DEC_TO_SCALE_FACTOR_16(ADC_TEMPERATURE_SENSOR_FIXED_SCALE),
@@ -1131,28 +1122,7 @@ void DoA37474(void) {
 #endif
 
   ETMDigitalUpdateInput(&global_data_A37474.interlock_relay_closed, PIN_INTERLOCK_RELAY_STATUS);
-  
-#ifdef __MODBUS_CONTROLS
-
-  if (modbus_slave_bit_0x01) {
-    global_data_A37474.request_heater_enable = 1;
-  } else {
-    global_data_A37474.request_heater_enable = 0;
-  }
-  
-  if (modbus_slave_bit_0x02) {
-    PIN_HV_ON_SERIAL = OLL_SERIAL_ENABLE;
-  } else {
-    PIN_HV_ON_SERIAL = !OLL_SERIAL_ENABLE;
-  }
-  
-  if (modbus_slave_bit_0x03) {
-    PIN_BEAM_ENABLE_SERIAL = OLL_SERIAL_ENABLE;
-  } else {
-    PIN_BEAM_ENABLE_SERIAL = !OLL_SERIAL_ENABLE;
-  }
-#endif
-  
+    
   
 #ifdef __CAN_CONTROLS
   if (!ETMCanSlaveGetSyncMsgSystemHVDisable()) {
@@ -1210,23 +1180,7 @@ void DoA37474(void) {
       global_data_A37474.reset_active = 1;
     }  
 #endif
- 
-    
-#ifdef __ETHERNET_CONTROLS
-   //set Reset bit from ethernet function     
-    if (global_data_A37474.control_state != STATE_FAULT_WARMUP_HEATER_OFF) {
-      if (global_data_A37474.ethernet_reset_cmd) {
-        global_data_A37474.ethernet_reset_cmd = 0;
-        global_data_A37474.reset_active = 1;
-      } else {
-        global_data_A37474.reset_active = 0;
-      } 
-    } else {
-      global_data_A37474.reset_active = 1;
-    }  
-      
-#endif
-    
+     
     
 #ifdef __DISCRETE_CONTROLS
 
@@ -1247,13 +1201,7 @@ void DoA37474(void) {
 
 #ifdef __MODBUS_CONTROLS  
 
-    if (global_data_A37474.control_state != STATE_FAULT_WARMUP_HEATER_OFF) {
-      if (GetModbusResetEnable()) {
-        global_data_A37474.reset_active = 1;
-      } else {
-        global_data_A37474.reset_active = 0;
-      } 
-    } else {
+    if (global_data_A37474.control_state == STATE_FAULT_WARMUP_HEATER_OFF) {
       global_data_A37474.reset_active = 1;
     }  
       
@@ -1456,16 +1404,7 @@ void DoA37474(void) {
     }
     
 #endif
-
-#ifdef __ETHERNET_REFERENCE
-    
-    ETMAnalogSetOutput(&global_data_A37474.analog_output_high_voltage, global_data_A37474.ethernet_hv_ref);
-    ETMAnalogSetOutput(&global_data_A37474.analog_output_top_voltage, global_data_A37474.ethernet_top_ref);
-    global_data_A37474.heater_voltage_target = global_data_A37474.ethernet_htr_ref;
-
-    
-#endif
-    
+  
    
     if (global_data_A37474.heater_voltage_target > MAX_PROGRAM_HTR_VOLTAGE) {
       global_data_A37474.heater_voltage_target = MAX_PROGRAM_HTR_VOLTAGE;
@@ -1596,6 +1535,8 @@ void DoA37474(void) {
     
     // Mange LED and Status Outputs
     UpdateLEDandStatusOutuputs();
+    
+    global_data_A37474.reset_active = 0;  // reset once 
   }
 }
 
@@ -1880,14 +1821,6 @@ void SetStateMessage (unsigned int message) {
   
 }
    
-unsigned int GetModbusResetEnable(void) {
-  if (modbus_slave_bit_0x04) {
-    modbus_slave_bit_0x04 = 0;  
-    return 1;
-  } else {
-    return 0;
-  }
-}
 
 void EnableHeater(void) {
   /* 
@@ -2936,6 +2869,26 @@ void ProcessCommand (MODBUS_MESSAGE * ptr) {
       if ((ptr->write_value == 0x0000) || (ptr->write_value == 0xFF00)) {
         ModbusSlaveBit[coil_index] = ptr->write_value;
         ETMEEPromWriteWord(0x640 + coil_index, ptr->write_value);
+        switch (coil_index) { // __MODBUS_CONTROLS checking
+        case 1:
+        	global_data_A37474.request_heater_enable = (modbus_slave_bit_0x01 > 0);
+        	break;
+        case 2:
+        	PIN_HV_ON_SERIAL = modbus_slave_bit_0x02 > 0? OLL_SERIAL_ENABLE : (!OLL_SERIAL_ENABLE);
+        	break;
+        case 3:
+        	PIN_BEAM_ENABLE_SERIAL = modbus_slave_bit_0x03 > 0? OLL_SERIAL_ENABLE : (!OLL_SERIAL_ENABLE);
+        	break;
+        case 4:
+        	if (global_data_A37474.control_state != STATE_FAULT_WARMUP_HEATER_OFF) {
+        		global_data_A37474.reset_active = (modbus_slave_bit_0x04 > 0);
+                modbus_slave_bit_0x04 = 0;
+            }
+        	break;
+        default:
+        	break;
+        }
+
       } else {
         ptr->received_function_code = ptr->function_code;
         ptr->function_code = EXCEPTION_FLAGGED;

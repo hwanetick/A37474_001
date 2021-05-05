@@ -342,10 +342,6 @@ typedef struct {
   unsigned int can_pulse_top_set_point;         // This is the pulse top set point set over the can interface (it is only used if can mode is selected)
   unsigned int can_heater_voltage_set_point;    // This is the heater voltage set point set over the can interface (it is only used if can mode is selected)
   
-  unsigned int ethernet_htr_ref;
-  unsigned int ethernet_top_ref;
-  unsigned int ethernet_hv_ref;
-
   unsigned int discrete_commands_always;
   unsigned int analog_references_always;
   unsigned int modbus_controls_enabled;
@@ -610,6 +606,7 @@ typedef struct {
 
 #define MODBUS_200ms_DELAY           20
 
+extern unsigned int ModbusSlaveHoldingRegister[SLAVE_HOLD_REG_ARRAY_SIZE];
 
 #define modbus_slave_hold_reg_0x00  ModbusSlaveHoldingRegister[0]
 #define modbus_slave_hold_reg_0x01  ModbusSlaveHoldingRegister[1]

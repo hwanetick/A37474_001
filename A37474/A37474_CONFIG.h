@@ -223,8 +223,10 @@
 #endif
 
 #ifdef __MODE_ETHERNET_INTERFACE
-#define __ETHERNET_REFERENCE
-#define __ETHERNET_CONTROLS
+#define __MODBUS_REFERENCE
+#define __MODBUS_CONTROLS
+#define __MODBUS_MONITOR
+
 #endif
 
 #ifdef __OPTION_ENABLE_CAN

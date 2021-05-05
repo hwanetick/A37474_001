@@ -385,8 +385,10 @@ void CanProcessCommand(unsigned char length, unsigned char * data)
         else if (data[4] == 0 || data[4] == 0xff) {
 
       //  	if (!sdo_reset_cmd_active && data[4])  
-        	if (data[4])  global_data_A37474.ethernet_reset_cmd = 1;          //sdo_logic_reset = 1;	 
-//    		sdo_reset_cmd_active = data[4];	
+	        if (global_data_A37474.control_state != STATE_FAULT_WARMUP_HEATER_OFF) {
+        		global_data_A37474.reset_active = (data[4] > 0);
+            }
+        //    		sdo_reset_cmd_active = data[4];	
 //            if (sdo_reset_cmd_active)
 //            	PIN_HV_ON_SERIAL = !OLL_SERIAL_ENABLE; // turn off hv when reset is active 
         }
@@ -485,7 +487,7 @@ void CanProcessCommand(unsigned char length, unsigned char * data)
         else if (data[4] == 0 || data[4] == 0xff) {
 
           //	if (sdo_trig_enable != data[4]) { // only act when value changes
-            	if (data[4])  	        PIN_BEAM_ENABLE_SERIAL = OLL_SERIAL_ENABLE;
+            	if (data[4])  	PIN_BEAM_ENABLE_SERIAL = OLL_SERIAL_ENABLE;
                 else   			PIN_BEAM_ENABLE_SERIAL = !OLL_SERIAL_ENABLE;	 
             
           //  }	 
@@ -505,8 +507,8 @@ void CanProcessCommand(unsigned char length, unsigned char * data)
         	// check max, min range
             set_value  = (unsigned int)data[5] << 8;
             set_value += (unsigned int)data[4];
-            global_data_A37474.ethernet_htr_ref = set_value;
-            ETMEEPromWriteWord(0x680, set_value);
+            modbus_slave_hold_reg_0x11 = set_value;
+            ETMEEPromWriteWord(EEPROM_INDEX_HTR_REF, set_value);
 //            if (set_value <= MAX_PROGRAM_HTR_VOLTAGE)
 //            {                        
 //	        	global_data_A37474.heater_voltage_target = set_value;
@@ -524,8 +526,8 @@ void CanProcessCommand(unsigned char length, unsigned char * data)
         	// check max, min range
             set_value  = (unsigned int)data[5] << 8;
             set_value += (unsigned int)data[4];
-            global_data_A37474.ethernet_top_ref = set_value;
-            ETMEEPromWriteWord(0x681, set_value);
+            modbus_slave_hold_reg_0x12 = set_value;
+            ETMEEPromWriteWord(EEPROM_INDEX_TOP_REF, set_value);
 //            if (set_value <= TOP_VOLTAGE_MAX_SET_POINT)  
 //            {    
 //            	ETMAnalogSetOutput(&global_data_A37474.analog_output_top_voltage, set_value);                    
@@ -543,8 +545,8 @@ void CanProcessCommand(unsigned char length, unsigned char * data)
         	// check max, min range
             set_value  = (unsigned int)data[5] << 8;
             set_value += (unsigned int)data[4];
-            global_data_A37474.ethernet_hv_ref = set_value;
-            ETMEEPromWriteWord(0x682, set_value);
+            modbus_slave_hold_reg_0x13 = set_value;
+            ETMEEPromWriteWord(EEPROM_INDEX_HV_REF, set_value);
 //            if (set_value >= HIGH_VOLTAGE_MIN_SET_POINT && set_value <= HIGH_VOLTAGE_MAX_SET_POINT)  
 //            {            
 //            	ETMAnalogSetOutput(&global_data_A37474.analog_output_high_voltage, set_value);                    

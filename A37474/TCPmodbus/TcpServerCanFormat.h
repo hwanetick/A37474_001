@@ -9,6 +9,9 @@
 #define TCP_BUS_TIMEOUT             100   /* in 10ms, timeout in 1s */
 
 
+#define EEPROM_INDEX_HV_REF           0x613
+#define EEPROM_INDEX_TOP_REF          0x612
+#define EEPROM_INDEX_HTR_REF          0x611
 
 // sdo indexes
 #if 0
