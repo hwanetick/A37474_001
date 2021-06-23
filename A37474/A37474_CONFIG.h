@@ -109,7 +109,7 @@
 #define MAX_PROGRAM_HTR_VOLTAGE                 8000         // 8.0 V
 #define MAX_RAMP_HTR_I                          2000         // 2.0 Amps
 #define HTR_OC_ABS                              2200         // 2.2 Amps
-#define HV_MAX_SET_BOARD_SPEC                   16000        // -16KV
+#define HV_MAX_SET_BOARD_SPEC                   20000        // -20KV
 #define HV_MIN_SET_BOARD_SPEC                   0            // -0KV
 #define TOP_MAX_SET_BOARD_SPEC                  18000        // 100V
 #define TOP_MIN_SET_BOARD_SPEC                  0            // -80V
