@@ -136,7 +136,7 @@
 #ifdef __A37474_110
 #define __MODE_ETHERNET_INTERFACE
 #define __MODE_MODBUS_MONITOR
-//#define __OPTION_ENABLE_CAN
+#define __OPTION_ENABLE_CAN
 #define OLL_PIN_CPU_HV_ENABLE_HV_ENABLED        1
 #define HEATER_RAMP_TIME                        30000        // 5.0min
 #define RAMP_TIME_INTERVAL                      30           // 300ms
@@ -145,7 +145,7 @@
 #define HTR_OC_ABS                              5200         // 5.2 Amps
 #define HV_MAX_SET_BOARD_SPEC                   20000        // -20KV
 #define HV_MIN_SET_BOARD_SPEC                   0            // -0KV
-#define TOP_MAX_SET_BOARD_SPEC                  38000        // 300V
+#define TOP_MAX_SET_BOARD_SPEC                  41000        // 305V (105+305 = 410 = 41000)
 #define TOP_MIN_SET_BOARD_SPEC                  0            // -80V
 #define BIAS_OVER_VOLTAGE                       22000        // -220V
 #define BIAS_UNDER_VOLTAGE                      18000        // -180V
@@ -378,7 +378,7 @@
 
 
 
-#define DAC_HEATER_VOLTAGE_FIXED_SCALE        7.5188
+#define DAC_HEATER_VOLTAGE_FIXED_SCALE        7.28178//7.5188
 #define DAC_HEATER_VOLTAGE_FIXED_OFFSET       0
 #define HEATER_VOLTAGE_MAX_SET_POINT          MAX_PROGRAM_HTR_VOLTAGE           // 9.0V
 #define HEATER_VOLTAGE_MIN_SET_POINT          0                                 // 0V
